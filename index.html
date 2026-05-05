@@ -285,82 +285,6 @@
       margin-top: 12px;
     }
 
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.5);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: var(--surface);
-      border-radius: 16px;
-      padding: 32px 28px;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,.15);
-    }
-
-    .modal-icon { font-size: 40px; margin-bottom: 16px; }
-
-    .modal h2 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      letter-spacing: -0.4px;
-    }
-
-    .modal p {
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .modal-price {
-      background: var(--accent-light);
-      color: var(--accent);
-      font-size: 28px;
-      font-weight: 700;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 20px;
-    }
-
-    .modal-price span {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-
-    .btn-upgrade {
-      background: var(--accent);
-      color: #fff;
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      font-size: 15px;
-      margin-bottom: 10px;
-    }
-
-    .btn-upgrade:hover { background: var(--accent-hover); }
-
-    .btn-dismiss {
-      background: none;
-      color: var(--text-muted);
-      font-size: 14px;
-      width: 100%;
-      padding: 8px;
-    }
-
-    .btn-dismiss:hover { color: var(--text); }
 
     .how-section { margin-top: 40px; }
 
@@ -421,14 +345,6 @@
   <h1>Turn any feature into a user story. Instantly.</h1>
   <p class="subtitle">Describe your feature in plain language and get a formatted user story with acceptance criteria in seconds. No sign-up. No prompt engineering.</p>
 
-  <div class="usage-bar" id="usageBar">
-    <div class="usage-dots">
-      <div class="dot" id="dot1"></div>
-      <div class="dot" id="dot2"></div>
-      <div class="dot" id="dot3"></div>
-    </div>
-    <span class="usage-text" id="usageText">3 free generations remaining</span>
-  </div>
 
   <div class="card">
     <div class="selectors">
@@ -510,16 +426,6 @@
   </div>
 </main>
 
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <div class="modal-icon">✦</div>
-    <h2>You've used your 3 free generations</h2>
-    <p>Upgrade to unlimited access and generate as many user stories as you need.</p>
-    <div class="modal-price">5€ <span>/ month</span></div>
-    <button class="btn-upgrade" onclick="goToStripe()">Get unlimited access</button>
-    <button class="btn-dismiss" onclick="closeModal()">Maybe later</button>
-  </div>
-</div>
 
 <footer>
   Made for product builders &nbsp;·&nbsp;
@@ -527,36 +433,9 @@
 </footer>
 
 <script>
-  const FREE_LIMIT = 3;
-  const STORAGE_KEY = 'usg_count';
-
   let currentDescription = '';
   let currentToolType = '';
   let currentDomain = '';
-
-  function getCount() {
-    return parseInt(sessionStorage.getItem(STORAGE_KEY) || '0', 10);
-  }
-
-  function incrementCount() {
-    const c = getCount() + 1;
-    sessionStorage.setItem(STORAGE_KEY, c);
-    return c;
-  }
-
-  function updateUsageUI(count) {
-    const remaining = Math.max(0, FREE_LIMIT - count);
-    document.getElementById('usageText').textContent =
-      remaining === 1
-        ? '1 free generation remaining'
-        : remaining === 0
-        ? 'Free limit reached. Upgrade for unlimited access.'
-        : `${remaining} free generations remaining`;
-
-    for (let i = 1; i <= FREE_LIMIT; i++) {
-      document.getElementById(`dot${i}`).classList.toggle('used', i <= count);
-    }
-  }
 
   document.getElementById('featureInput').addEventListener('input', function () {
     document.getElementById('charCount').textContent = this.value.length;
@@ -568,12 +447,6 @@
 
     if (description.length < 10) {
       showError('Please describe your feature in at least 10 characters.');
-      return;
-    }
-
-    const count = getCount();
-    if (count >= FREE_LIMIT) {
-      openModal();
       return;
     }
 
@@ -598,13 +471,7 @@
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Generation failed');
 
-      const newCount = incrementCount();
-      updateUsageUI(newCount);
       showResult(data.result);
-
-      if (newCount >= FREE_LIMIT) {
-        setTimeout(openModal, 1800);
-      }
     } catch (err) {
       showError(err.message || 'Something went wrong. Please try again.');
     } finally {
@@ -662,14 +529,6 @@
     document.getElementById('errorMsg').style.display = 'none';
   }
 
-  function openModal() { document.getElementById('modal').classList.add('open'); }
-  function closeModal() { document.getElementById('modal').classList.remove('open'); }
-
-  function goToStripe() {
-    alert('Coming soon.');
-  }
-
-  updateUsageUI(getCount());
 </script>
 
 </body>
