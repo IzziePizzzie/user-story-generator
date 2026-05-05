@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { description } = req.body;
+  const { description, toolType, domain } = req.body;
 
   if (!description || description.trim().length < 10) {
     return res.status(400).json({ error: 'Description too short' });
@@ -14,9 +14,14 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'API key not configured' });
   }
 
+  const context = [
+    toolType ? `Product type: ${toolType}` : null,
+    domain ? `Industry: ${domain}` : null,
+  ].filter(Boolean).join('\n');
+
   const prompt = `You are an expert product manager. Generate a well-structured user story from the following feature description.
 
-Feature description: "${description.trim()}"
+${context ? `Context:\n${context}\n` : ''}Feature description: "${description.trim()}"
 
 Output EXACTLY in this format, nothing else:
 

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Write Great User Stories. A Practical Guide for PMs and Product Builders</title>
+  <meta name="description" content="Learn how to write effective user stories with the As a / I want / So that format. Includes examples, acceptance criteria templates and common mistakes to avoid.">
+  <meta property="og:title" content="How to Write Great User Stories. A Practical Guide for PMs and Product Builders">
+  <meta property="og:description" content="Learn how to write effective user stories with examples, acceptance criteria templates and common mistakes to avoid.">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e5e0;
+      --text: #1a1814;
+      --text-muted: #7a7570;
+      --accent: #5b4cf5;
+      --accent-light: #eeecfe;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    main {
+      flex: 1;
+      padding: 48px 24px 80px;
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-top: 48px;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      font-size: 16px;
+      line-height: 1.75;
+      margin-bottom: 6px;
+    }
+
+    .example-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin: 24px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .example-box .example-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .example-box p { margin-bottom: 4px; font-size: 15px; }
+
+    .bad-box {
+      background: #fef2f2;
+      border-color: #fecaca;
+      border-left-color: #dc2626;
+    }
+
+    .bad-box .example-label { color: #dc2626; }
+
+    .good-box {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      border-left-color: #16a34a;
+    }
+
+    .good-box .example-label { color: #16a34a; }
+
+    .cta-block {
+      background: var(--accent);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      margin-top: 56px;
+    }
+
+    .cta-block h2 {
+      color: #fff;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .cta-block p {
+      color: rgba(255,255,255,.8);
+      margin-bottom: 24px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+
+    .cta-btn:hover { opacity: .9; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo">UserStoryGen</a>
+</header>
+
+<main>
+  <span class="tag">Guide</span>
+  <h1>How to write great user stories</h1>
+  <p class="lead">User stories are the foundation of any good product. They keep teams aligned around what users actually need. This guide covers the format, the rules, and the most common mistakes to avoid.</p>
+
+  <h2>What is a user story?</h2>
+  <p>A user story is a short, simple description of a feature told from the perspective of the person who needs it. It answers three questions: who needs it, what they want, and why they want it.</p>
+  <p>The standard format is:</p>
+
+  <div class="example-box">
+    <div class="example-label">Format</div>
+    <p><strong>As a</strong> [specific user role],</p>
+    <p><strong>I want to</strong> [specific action],</p>
+    <p><strong>So that</strong> [concrete benefit].</p>
+  </div>
+
+  <h2>Why user stories matter</h2>
+  <p>User stories shift the focus from features to outcomes. Instead of saying "build a login page," you say "enable a returning customer to access their account securely." That small shift changes how your team thinks about the problem.</p>
+  <p>Good user stories also make it easier to estimate effort, prioritize work, and define when something is actually done.</p>
+
+  <h2>The three parts explained</h2>
+
+  <h3>As a [role]</h3>
+  <p>Be specific. "User" tells you nothing. "Returning customer," "workspace admin," or "first-time visitor" gives context that shapes the solution.</p>
+
+  <div class="example-box bad-box">
+    <div class="example-label">Too vague</div>
+    <p>As a <strong>user</strong>, I want to reset my password...</p>
+  </div>
+
+  <div class="example-box good-box">
+    <div class="example-label">Specific and useful</div>
+    <p>As a <strong>registered customer who forgot their password</strong>, I want to reset it via email...</p>
+  </div>
+
+  <h3>I want to [action]</h3>
+  <p>Describe one action, not three. If you find yourself writing "and," you probably have two stories. Keep it atomic.</p>
+
+  <h3>So that [benefit]</h3>
+  <p>This is the most important part and the most often skipped. The benefit explains the "why" and helps the team make better trade-offs during implementation. If you can't write the benefit, the story may not be worth building.</p>
+
+  <h2>Acceptance criteria</h2>
+  <p>Acceptance criteria define when a user story is done. The most reliable format is Given / When / Then:</p>
+
+  <div class="example-box">
+    <div class="example-label">Acceptance criteria format</div>
+    <p><strong>Given</strong> [initial context or state],</p>
+    <p><strong>When</strong> [the action is performed],</p>
+    <p><strong>Then</strong> [the expected result].</p>
+  </div>
+
+  <p>Write 3 to 5 criteria per story. Cover the happy path, edge cases, and at least one error state.</p>
+
+  <h2>A complete example</h2>
+
+  <div class="example-box good-box">
+    <div class="example-label">Full user story</div>
+    <p><strong>As a</strong> workspace admin,</p>
+    <p><strong>I want to</strong> invite team members by email,</p>
+    <p><strong>So that</strong> my team can collaborate on shared projects without needing individual account setup.</p>
+    <br>
+    <p><strong>Acceptance criteria:</strong></p>
+    <p>Given I am on the workspace settings page, When I enter a valid email and click Invite, Then an invitation is sent to that address.</p>
+    <p>Given I enter an email already in the workspace, When I click Invite, Then I see an error message indicating they are already a member.</p>
+    <p>Given the invitee clicks the link in their email, When they accept, Then they are added to the workspace with the default role.</p>
+  </div>
+
+  <h2>Common mistakes to avoid</h2>
+  <ul>
+    <li><strong>Using "the system" as the role.</strong> Systems don't have goals. Users do.</li>
+    <li><strong>Writing technical requirements.</strong> "The API should return a 200 status" is not a user story.</li>
+    <li><strong>Skipping the benefit.</strong> "So that I can do it" is not a benefit.</li>
+    <li><strong>One giant story that covers an entire feature.</strong> Break it down until each story fits in a single sprint.</li>
+    <li><strong>No acceptance criteria.</strong> Without them, "done" is subjective and leads to rework.</li>
+  </ul>
+
+  <h2>How many stories do you need?</h2>
+  <p>For a MVP, aim for 5 to 8 "Must" stories that cover the core user journey end to end. Everything else goes in a backlog and can wait.</p>
+
+  <div class="cta-block">
+    <h2>Generate your user stories in seconds</h2>
+    <p>Describe your feature and let the AI format it for you. Free, no sign-up required.</p>
+    <a href="/" class="cta-btn">Try UserStoryGen</a>
+  </div>
+</main>
+
+<footer>
+  Made for product builders &nbsp;·&nbsp;
+  <a href="/">Back to the tool</a>
+</footer>
+
+</body>
+</html>
