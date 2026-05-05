@@ -1,13 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Skill(seo-research)",
-      "Skill(seo-research:*)",
-      "WebSearch",
-      "Skill(validate-product)",
-      "Skill(validate-product:*)",
-      "Skill(build-micro-tool)",
-      "Skill(build-micro-tool:*)"
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ],
     "deny": [
       "Bash(rm -rf:*)",

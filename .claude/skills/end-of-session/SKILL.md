@@ -41,10 +41,11 @@ Avant le commit, lancer `git status` et vérifier :
 - Aucun fichier credentials ou token
 - Si un fichier suspect est stagé → alerter Isa et ne pas committer
 
-## Étape 3 — Mettre à jour la mémoire
+## Étape 3 — Mettre à jour la mémoire et les roadmaps
 - Mettre à jour `memory/project_sprint_status.md` avec le statut actuel des produits
 - Créer un fichier `memory/feedback_[sujet].md` si Isa a corrigé ou validé une approche non-évidente
 - Mettre à jour `memory/MEMORY.md` si des fichiers mémoire ont été ajoutés/supprimés
+- **Mettre à jour `roadmaps/NOW.md`** : cocher les tâches faites, ajuster les priorités de la semaine suivante, mettre à jour les KPI si des chiffres ont changé
 
 ## Étape 4 — Commit GitHub (si validé)
 - Proposer un message de commit clair et descriptif (en français, pas de Co-Authored-By)

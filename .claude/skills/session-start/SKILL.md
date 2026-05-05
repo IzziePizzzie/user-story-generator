@@ -18,8 +18,9 @@ Lire ces fichiers dans cet ordre :
 
 1. `context/me.md` → qui est Isabelle, comment elle travaille
 2. `memory/MEMORY.md` → règles de collaboration établies, patterns à respecter
-3. `context/decisions-log.md` → les 3-5 dernières décisions (lire en haut du fichier, entrées les plus récentes)
-4. Si un produit est en cours → lire son README dans `products/[nom-produit]/`
+3. `roadmaps/NOW.md` → **priorité absolue** — ce qu'on fait cette semaine, les KPI en cours, les projets actifs
+4. `context/decisions-log.md` → les 3-5 dernières décisions (lire en haut du fichier, entrées les plus récentes)
+5. Si un produit est en cours → lire son README dans `products/[nom-produit]/`
 
 Ne pas tout lire en détail — scanner pour identifier ce qui est actif et pertinent.
 
@@ -28,9 +29,9 @@ Ne pas tout lire en détail — scanner pour identifier ce qui est actif et pert
 ## Étape 2 — Résumé de contexte
 
 Présenter en 3-4 lignes maximum :
-- Ce qui était en cours à la dernière session (si visible dans les décisions)
-- Les produits actifs (statut : idée / en validation / en build / en ligne)
-- Un rappel de l'objectif en cours (ex : "valider une idée SEO", "finir l'outil X", "premier déploiement")
+- Ce qu'il y a à faire **cette semaine** (tiré de `roadmaps/NOW.md`)
+- Les produits actifs et leur phase (tiré de `NOW.md` section "Projets actifs")
+- Les KPI à surveiller en ce moment
 
 Être concis. Isa n'a pas besoin d'un roman — juste assez pour se replacer mentalement.
 

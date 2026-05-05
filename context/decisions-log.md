@@ -4,6 +4,21 @@ Format : chaque décision documentée avec contexte, options envisagées, choix 
 
 ---
 
+## [2026-05-05] — Marque Kōdo Studio + système de roadmaps
+
+**Contexte** : Isabelle ne veut pas distribuer ses outils en son nom propre, surtout pour un projet anglophone. Elle a créé une identité studio "Kōdo" pour Gumroad.
+
+**Décisions retenues** :
+- Tous les micro-outils seront distribués sous la marque Kōdo
+- Les comptes de distribution (Product Hunt, Reddit, Twitter/X, Gumroad) seront créés sous Kōdo avant toute publication
+- Création d'un système de roadmaps dans `/roadmaps/` : une roadmap par projet + `NOW.md` comme fichier pivot de session
+
+**Raisonnement** : Anonymat + professionnalisme pour un projet anglophone. La marque Kōdo est une condition de distribution, pas du polish — donc prioritaire. `NOW.md` centralise les priorités hebdomadaires pour éviter de relire 4 fichiers à chaque session.
+
+**Limites** : Les comptes Kōdo bloquent toute la phase distribution du User Story Generator — à créer en priorité absolue cette semaine.
+
+---
+
 ## [2026-05-05] — Choix du modèle business
 
 **Contexte** : Démarrage du projet business secondaire. Choix du modèle à adopter.
