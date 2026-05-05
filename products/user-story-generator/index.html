@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Story Generator — Free AI Tool for PMs & Product Builders</title>
+  <meta name="description" content="Turn any feature description into a formatted user story + acceptance criteria in seconds. Free, no sign-up required. Built for PMs, product builders and agile teams.">
+  <meta property="og:title" content="User Story Generator — Free AI Tool for PMs & Product Builders">
+  <meta property="og:description" content="Turn any feature description into a formatted user story + acceptance criteria in seconds. Free, no sign-up required.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e5e0;
+      --text: #1a1814;
+      --text-muted: #7a7570;
+      --accent: #5b4cf5;
+      --accent-hover: #4a3de0;
+      --accent-light: #eeecfe;
+      --success: #16a34a;
+      --error: #dc2626;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--accent);
+      letter-spacing: -0.3px;
+    }
+
+    main {
+      flex: 1;
+      padding: 40px 24px 60px;
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      resize: vertical;
+      min-height: 110px;
+      transition: border-color .15s;
+      outline: none;
+    }
+
+    textarea:focus { border-color: var(--accent); background: #fff; }
+    textarea::placeholder { color: #b0aca6; }
+
+    .counter {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      text-align: right;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .15s;
+      padding: 12px 20px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      flex: 1;
+    }
+
+    .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      display: none;
+    }
+
+    .btn-secondary:hover { background: var(--border); }
+
+    .result-card {
+      display: none;
+      background: var(--surface);
+      border: 1.5px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .result-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    .btn-copy {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    .btn-copy:hover { background: #e0dcfc; }
+    .btn-copy.copied { background: #dcfce7; color: var(--success); }
+
+    .result-text {
+      font-size: 15px;
+      line-height: 1.75;
+      white-space: pre-wrap;
+      color: var(--text);
+    }
+
+    .result-text strong { font-weight: 700; }
+
+    .usage-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .usage-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background .2s;
+    }
+
+    .dot.used { background: var(--accent); }
+
+    .usage-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .loading {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 14px;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-msg {
+      display: none;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: var(--error);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 32px 28px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    }
+
+    .modal-emoji { font-size: 40px; margin-bottom: 16px; }
+
+    .modal h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.4px;
+    }
+
+    .modal p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .modal-price {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 28px;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+
+    .modal-price span {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .btn-upgrade {
+      background: var(--accent);
+      color: #fff;
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .btn-upgrade:hover { background: var(--accent-hover); }
+
+    .btn-dismiss {
+      background: none;
+      color: var(--text-muted);
+      font-size: 14px;
+      width: 100%;
+      padding: 8px;
+    }
+
+    .btn-dismiss:hover { color: var(--text); }
+
+    /* How it works */
+    .how-section {
+      margin-top: 40px;
+    }
+
+    .how-section h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-text {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .step-text strong { color: var(--text); }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      main { padding: 28px 16px 48px; }
+      .card { padding: 18px; }
+      .btn-group { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚡ UserStoryGen</div>
+</header>
+
+<main>
+  <h1>Turn any feature into a user story — instantly.</h1>
+  <p class="subtitle">Describe your feature in plain language and get a formatted user story with acceptance criteria in seconds. No sign-up. No prompt engineering.</p>
+
+  <div class="usage-bar" id="usageBar">
+    <div class="usage-dots">
+      <div class="dot" id="dot1"></div>
+      <div class="dot" id="dot2"></div>
+      <div class="dot" id="dot3"></div>
+    </div>
+    <span class="usage-text" id="usageText">3 free generations remaining</span>
+  </div>
+
+  <div class="card">
+    <label for="featureInput">Describe your feature</label>
+    <textarea
+      id="featureInput"
+      placeholder="e.g. Users should be able to reset their password via email if they forgot it."
+      maxlength="500"
+    ></textarea>
+    <div class="counter"><span id="charCount">0</span> / 500</div>
+
+    <div class="btn-group">
+      <button class="btn-primary" id="generateBtn" onclick="generate()">Generate user story →</button>
+      <button class="btn-secondary" id="regenBtn" onclick="regenerate()">↺ Regenerate</button>
+    </div>
+
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <span>Generating your user story…</span>
+    </div>
+
+    <div class="error-msg" id="errorMsg"></div>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="result-header">
+      <span class="result-label">Generated User Story</span>
+      <button class="btn-copy" id="copyBtn" onclick="copyResult()">Copy</button>
+    </div>
+    <div class="result-text" id="resultText"></div>
+  </div>
+
+  <div class="how-section">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Describe your feature</strong> in plain language — one sentence is enough.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Click Generate</strong> — the AI structures your input into a proper user story format.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Copy and paste</strong> the result directly into Notion, Jira, or any tool you use.</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Freemium Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-emoji">⚡</div>
+    <h2>You've used your 3 free generations</h2>
+    <p>Upgrade to unlimited access and generate as many user stories as you need.</p>
+    <div class="modal-price">5€ <span>/ month</span></div>
+    <button class="btn-upgrade" onclick="goToStripe()">Get unlimited access</button>
+    <button class="btn-dismiss" onclick="closeModal()">Maybe later</button>
+  </div>
+</div>
+
+<footer>
+  Made with ♥ for product builders &nbsp;·&nbsp;
+  <a href="mailto:iza.ducournau@gmail.com">Contact</a>
+</footer>
+
+<script>
+  const FREE_LIMIT = 3;
+  const STORAGE_KEY = 'usg_count';
+
+  let currentDescription = '';
+
+  function getCount() {
+    return parseInt(sessionStorage.getItem(STORAGE_KEY) || '0', 10);
+  }
+
+  function incrementCount() {
+    const c = getCount() + 1;
+    sessionStorage.setItem(STORAGE_KEY, c);
+    return c;
+  }
+
+  function updateUsageUI(count) {
+    const remaining = Math.max(0, FREE_LIMIT - count);
+    document.getElementById('usageText').textContent =
+      remaining === 1
+        ? '1 free generation remaining'
+        : remaining === 0
+        ? 'Free limit reached — upgrade for unlimited'
+        : `${remaining} free generations remaining`;
+
+    for (let i = 1; i <= FREE_LIMIT; i++) {
+      document.getElementById(`dot${i}`).classList.toggle('used', i <= count);
+    }
+  }
+
+  // Character counter
+  document.getElementById('featureInput').addEventListener('input', function () {
+    document.getElementById('charCount').textContent = this.value.length;
+  });
+
+  async function generate(isRegen = false) {
+    const input = document.getElementById('featureInput');
+    const description = input.value.trim();
+
+    if (description.length < 10) {
+      showError('Please describe your feature in at least 10 characters.');
+      return;
+    }
+
+    const count = getCount();
+    if (count >= FREE_LIMIT) {
+      openModal();
+      return;
+    }
+
+    currentDescription = description;
+    setLoading(true);
+    hideError();
+
+    try {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Generation failed');
+
+      const newCount = incrementCount();
+      updateUsageUI(newCount);
+      showResult(data.result);
+
+      if (newCount >= FREE_LIMIT) {
+        setTimeout(openModal, 1800);
+      }
+    } catch (err) {
+      showError(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function regenerate() {
+    document.getElementById('featureInput').value = currentDescription;
+    generate(true);
+  }
+
+  function showResult(text) {
+    const card = document.getElementById('resultCard');
+    const el = document.getElementById('resultText');
+
+    // Render **bold** markdown
+    el.innerHTML = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    card.style.display = 'block';
+    document.getElementById('regenBtn').style.display = 'block';
+    document.getElementById('copyBtn').classList.remove('copied');
+    document.getElementById('copyBtn').textContent = 'Copy';
+
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function copyResult() {
+    const text = document.getElementById('resultText').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  function setLoading(state) {
+    document.getElementById('loading').style.display = state ? 'flex' : 'none';
+    document.getElementById('generateBtn').disabled = state;
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function hideError() {
+    document.getElementById('errorMsg').style.display = 'none';
+  }
+
+  function openModal() { document.getElementById('modal').classList.add('open'); }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+  function goToStripe() {
+    // Replace with your Stripe payment link
+    alert('Stripe link coming soon — replace this with your Stripe checkout URL.');
+  }
+
+  // Init usage UI on load
+  updateUsageUI(getCount());
+</script>
+
+</body>
+</html>

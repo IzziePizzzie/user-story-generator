@@ -1,0 +1,20 @@
+# Secrets & credentials
+.env
+.env.local
+.env.*.local
+
+# Claude config locale (permissions allow, MCP)
+.claude/settings.local.json
+.mcp.json
+CLAUDE.local.md
+
+# Dependencies
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+.vercel/
