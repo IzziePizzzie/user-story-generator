@@ -12,10 +12,11 @@ Dernière mise à jour : 2026-05-05
 ### Priorité absolue — Kōdo (blocker)
 Les comptes Kōdo sont un prérequis à toute distribution. Rien ne peut être posté sans eux.
 
-- [ ] Créer compte Product Hunt "Kōdo"
-- [ ] Créer compte Reddit neutre
-- [ ] Créer compte Twitter/X @kodo_studio
-- [ ] Créer compte Gumroad "Kōdo"
+- [x] Créer email `kodo.build@gmail.com`
+- [x] Créer compte Twitter/X @kodo_studio
+- [x] Créer compte Product Hunt `kodo_studio`
+- [ ] Créer compte Reddit
+- [ ] Créer compte LinkedIn
 
 ### Dès que Kōdo est prêt — User Story Generator
 - [ ] Poster sur Reddit r/ProductManagement + r/nocode

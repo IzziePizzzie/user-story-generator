@@ -4,6 +4,24 @@ Format : chaque décision documentée avec contexte, options envisagées, choix 
 
 ---
 
+## [2026-05-06] — Fondation marque Kōdo + positionnement
+
+**Contexte** : Session dédiée à poser les bases opérationnelles de la marque Kōdo.
+
+**Décisions retenues** :
+- Email de marque : `kodo.build@gmail.com` (redirigé vers adresse perso)
+- Comptes créés : X `@kodo_studio`, Product Hunt `kodo_studio`
+- Reddit et LinkedIn : à créer ultérieurement
+- Fichier de référence marque créé : `context/kodo.md`
+- Positionnement affiné : "Outils pour solo builders — ceux qui construisent sans équipe technique"
+- La cible n'est pas une personne précise mais une situation : seul, sans équipe, besoin d'aller vite
+- Bio X retenue : "Build smarter. Ship faster. ⚡" (tagline seule, pas de description)
+- Gumroad mis en retrait — pas la priorité, distribution multi-canal selon les outils
+
+**Raisonnement** : Fixer une cible trop précise trop tôt risque de réduire la portée. Laisser le catalogue décider quelle cible répond le mieux. Les bases opérationnelles (email, comptes) débloquent la distribution.
+
+---
+
 ## [2026-05-05] — Marque Kōdo Studio + système de roadmaps
 
 **Contexte** : Isabelle ne veut pas distribuer ses outils en son nom propre, surtout pour un projet anglophone. Elle a créé une identité studio "Kōdo" pour Gumroad.

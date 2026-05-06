@@ -52,6 +52,7 @@ Isa a tendance à s'emballer. Mon rôle est de la cadrer activement.
 
 ## Contexte à charger selon la tâche
 - Début de session → lire @context/me.md pour connaître le profil d'Isabelle
+- Marque Kōdo → lire @context/kodo.md
 - Nouveau produit → lire @context/business-vision.md + @context/target-persona.md
 - Bug ou amélioration → lire le README du produit concerné dans /products/
 - Décision importante → lire @context/decisions-log.md avant de proposer
